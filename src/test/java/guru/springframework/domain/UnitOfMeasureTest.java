@@ -27,4 +27,11 @@ class UnitOfMeasureTest {
         assertEquals("Cup", unitOfMeasure.get().getDescription());
     }
 
+
+    @Test
+    void findByDescriptionTea(){
+        Optional<UnitOfMeasure> unitOfMeasure = unitOfMeasureRepository.findByDescription("Teaspoon");
+
+        assertEquals("Teaspoon", unitOfMeasure.get().getDescription());
+    }
 }
