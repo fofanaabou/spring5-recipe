@@ -19,6 +19,7 @@ public class Recipe {
     private Integer cookTime;
     private String source;
     private String url;
+    private Integer servings;
     // todo
 
     @Enumerated(value = EnumType.STRING)
