@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Slf4j
@@ -38,6 +39,11 @@ public class RecipeServiceImpl implements RecipeService{
     @Override
     public Recipe findById(Long id){
         return recipeRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public RecipeCommand findCommandById(Long id){
+        return recipeToRecipeCommand.convert(findById(id));
     }
 
     @Override
