@@ -11,6 +11,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @Slf4j
 @RequestMapping("recipe/{recipeId}")
 @Controller
@@ -51,6 +53,7 @@ public class IngredientController {
         //need to return back parent id for hidden form property
         IngredientCommand ingredientCommand = new IngredientCommand();
         ingredientCommand.setRecipeId(Long.valueOf(recipeId));
+        log.info("re:" + ingredientCommand.getRecipeId());
         model.addAttribute("ingredient", ingredientCommand);
 
         //init uom
@@ -65,18 +68,21 @@ public class IngredientController {
     @GetMapping("/ingredient/{id}/update")
     public String updateRecipeIngredient(@PathVariable String recipeId,
                                          @PathVariable String id, Model model){
+        IngredientCommand ingredientCommand =ingredientService.findByRecipeIdAndIngredientId(Long.valueOf(recipeId), Long.valueOf(id));
+
         model.addAttribute("ingredient", ingredientService.findByRecipeIdAndIngredientId(Long.valueOf(recipeId), Long.valueOf(id)));
 
         model.addAttribute("uomList", unitOfMeasureService.listAllUoms());
         return "recipe/ingredient/ingredientform";
     }
 
-    @PostMapping("/ingredient")
-    public String saveOrUpdate(@ModelAttribute IngredientCommand command){
+    @RequestMapping("/ingredient")
+    @PostMapping
+    public String saveOrUpdate(@ModelAttribute IngredientCommand command, @PathVariable String recipeId){
         IngredientCommand savedCommand = ingredientService.saveIngredientCommand(command);
         log.debug("saved receipe id:" + savedCommand.getRecipeId());
         log.debug("saved ingredient id:" + savedCommand.getId());
 
-        return "redirect:/recipe/" + savedCommand.getRecipeId() + "/ingredient/" + savedCommand.getId() + "/show";
+        return "redirect:/recipe/" + recipeId + "/ingredient/" + savedCommand.getId() + "/show";
     }
 }
