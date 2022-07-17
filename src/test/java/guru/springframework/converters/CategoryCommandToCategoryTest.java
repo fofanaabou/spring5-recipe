@@ -21,10 +21,9 @@ public class CategoryCommandToCategoryTest {
     }
 
     @Test
-    @NotNull
     public void testNullObject() throws Exception {
 
-        assertNull(conveter);
+        assertNull(conveter.convert(null));
     }
 
     @Test
