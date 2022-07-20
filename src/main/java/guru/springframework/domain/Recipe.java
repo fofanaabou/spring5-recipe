@@ -28,7 +28,7 @@ public class Recipe {
     private Set<Ingredient> ingredients = new HashSet<>();
 
     @Lob
-    private byte [] image;
+    private Byte [] image;
 
     @Lob
     private String directions;
