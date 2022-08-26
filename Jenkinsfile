@@ -3,11 +3,9 @@ pipeline {
     stages {
         stage('build') {
             steps {
-                sh 'mvn --version'
                 echo 'building project...'
                 sh 'mvn compile'
                 sh 'mvn package'
-                sh 'mvn clean install'
             }
         }
     }
