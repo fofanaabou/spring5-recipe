@@ -1,9 +1,23 @@
 pipeline {
-    agent { docker { image 'maven:3.8.4-openjdk-11-slim' } }
+    agent any
+    tools {
+        jdk 'jdk'
+        maven '3.8.3'
+
+    }
     stages {
-        stage('build') {
+        stage("build project") {
             steps {
-                sh 'mvn --version'
+               // git 'https://github.com/denizturkmen/SpringBootMysqlCrud.git'
+                echo "Java VERSION"
+                sh 'java -version'
+                echo "Maven VERSION"
+                sh 'mvn -version'
+                echo 'building project...'
+                sh "mvn compile"
+                sh "mvn package"
+                //sh "mvn test"
+                sh "mvn clean install"
             }
         }
     }
